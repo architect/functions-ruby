@@ -69,3 +69,13 @@ Example output:
 ### `Arc::Tables`
 
 - `name(table)` return the physicalID for the given table name
+
+
+---
+
+### Releasing
+
+```bash
+gem build architect-functions.gemspec
+gem push architect-functions-X.X.X.gem
+```
