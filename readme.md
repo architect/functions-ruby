@@ -15,6 +15,7 @@ bundle add architect-functions
 
 ```ruby
 # example lambda function
+require 'json'
 require 'architect/functions'
 
 def handler
