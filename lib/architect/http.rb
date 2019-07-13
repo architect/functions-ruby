@@ -8,11 +8,18 @@ module Arc
 
       def self.read(request)
 
-        # look for the headers and return if theres nothing
-        raw = request[:event]['headers']['cookie'] || false 
+        # ruby is awesome; hash keys might be strings or symbols
+        tmp = if request[:event].has_key? :headers then
+                request[:event][:headers]
+              else
+                request[:event]['headers']
+              end
+
+        # continue our cookie search
+        raw = tmp['cookie'] || tmp[:cookie] || false 
         return {} if raw == false
 
-        # if we found cookie parse it; bail if _idx is missing
+        # if we found the cookie parse it; bail if _idx is missing
         parsed = raw.split(/=|;/).collect(&:strip)
         return {} unless parsed.include? '_idx'
 
