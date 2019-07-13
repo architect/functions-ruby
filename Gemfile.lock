@@ -33,17 +33,19 @@ GEM
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
     jmespath (1.4.0)
+    jwe (0.4.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk-apigateway (~> 1.33)
+  aws-sdk-apigateway
   aws-sdk-dynamodb
   aws-sdk-s3
   aws-sdk-sns
   aws-sdk-sqs
   aws-sdk-ssm
+  jwe (~> 0.4.0)
 
 BUNDLED WITH
    1.17.3
