@@ -9,11 +9,11 @@ module Arc
       def self.read(request)
 
         # look for the headers and return if theres nothing
-        raw = request[:headers][:cookie] || false 
+        raw = request[:event]['headers']['cookie'] || false 
         return {} if raw == false
 
         # if we found cookie parse it; bail if _idx is missing
-        parsed = raw.split(/=|;/)
+        parsed = raw.split(/=|;/).collect(&:strip)
         return {} unless parsed.include? '_idx'
 
         # return the decrypted payload
