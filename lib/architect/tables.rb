@@ -11,7 +11,7 @@ module Arc
     #
     def self.table(tablename:)
       ddb = if ENV['NODE_ENV'] == 'testing' 
-              Aws::DynamoDB::Resource.new :endpoint=> 'http://localhost:5000'
+              Aws::DynamoDB::Resource.new endpoint: "http://localhost:#{Arc::Tables.port}"
             else
               Aws::DynamoDB::Resource.new
             end
@@ -24,13 +24,17 @@ module Arc
     def self.name(tablename:)
       if ENV['NODE_ENV'] == 'testing'
         tmp = "staging-#{tablename}"
-        db = Aws::DynamoDB::Resource.new :endpoint=> 'http://localhost:5000'
+        db = Aws::DynamoDB::Resource.new endpoint: "http://localhost:#{Arc::Tables.port}"
         tbl = db.tables().detect {|e| e.name.include?(tmp)}
         tbl.name
       else
         arc = Arc.reflect
         arc['tables'][tablename]
       end
+    end
+
+    def self.port
+      ENV.fetch('ARC_TABLES_PORT') { 5555 }
     end
   end
 end
